@@ -1,6 +1,6 @@
 readAll:
 SELECT *
-FROM Users;
+FROM Users ORDER BY created_at;
 
 read:
 SELECT *
