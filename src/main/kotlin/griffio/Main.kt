@@ -27,8 +27,8 @@ fun main() = with(sample.usersQueries) {
 
     val updated = user.copy(
         email = "xyz@example.com",
-        profile = """{"picture":"img/catface.png"}""",
-        preferences = """{"marketing":false}""").update()
+        profile = """{"picture":"img/catface.png", "timezone":"America/Los_Angeles"}""",
+        preferences = """{"marketing":false, "pizza-topping":"pineapple"}""").update()
 
     println(updated)
 
