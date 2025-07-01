@@ -14,26 +14,27 @@ private fun getSqlDriver() = PGSimpleDataSource().apply {
 val driver = getSqlDriver()
 val sample = Sample(driver)
 
-fun main() = with(sample.usersQueries) {
+fun main() = with(ConsoleLogger("Main")) {
+    val dbTransaction = DbTransaction(sample.usersQueries)
+    transaction(dbTransaction) {
+        val user = Users(
+            id = -1,
+            email = "abc@example.com",
+            profile = "{}",
+            preferences = "{}",
+            created_at = null, updated_at = null
+        ).create()
 
-    val user = Users(
-        id = -1,
-        email = "abc@example.com",
-        profile = "{}",
-        preferences = "{}",
-        created_at = null, updated_at = null).create()
+        println(user)
 
-    println(user)
+        val updated = user.copy(
+            email = "xyz@example.com",
+            profile = """{"picture":"img/catface.png", "timezone":"America/Los_Angeles"}""",
+            preferences = """{"marketing":false, "pizza-topping":"pineapple"}"""
+        ).update()
 
-    val updated = user.copy(
-        email = "xyz@example.com",
-        profile = """{"picture":"img/catface.png", "timezone":"America/Los_Angeles"}""",
-        preferences = """{"marketing":false, "pizza-topping":"pineapple"}""").update()
+        println(updated)
 
-    println(updated)
-
-    println(updated.delete())
-
+        println(updated.delete())
+    }
 }
-
-
