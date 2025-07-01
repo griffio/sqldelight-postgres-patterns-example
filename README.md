@@ -7,11 +7,6 @@ Version: 2.1.0
 Active Record Pattern using Kotlin (2.2.0) context parameters 
 
 ```kotlin
-package griffio
-
-import griffio.migrations.Users
-import griffio.queries.UsersQueries
-
 context(db: UsersQueries)
 fun Users.create(): Users = db.create(this).executeAsOne()
 
