@@ -1,0 +1,20 @@
+readAll:
+SELECT *
+FROM Users;
+
+read:
+SELECT *
+FROM Users
+WHERE id = :id ;
+
+create:
+INSERT INTO Users(email, profile, preferences) VALUES ? RETURNING *;
+
+update:
+UPDATE Users
+SET email = :email, profile = :profile, preferences = :preferences, updated_at = NOW()
+WHERE id = :id RETURNING *;
+
+delete:
+DELETE FROM Users
+WHERE id = :id;
